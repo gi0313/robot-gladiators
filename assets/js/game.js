@@ -27,14 +27,15 @@ while(playerHealth > 0 && enemyHealth > 0) {
         if(confirmSkip) {
             window.alert(playerName + " has chosen to skip the fight!");
             //subrtact money
-            playerMoney = playerMoney - 10;
-            console.log("playerMoney", playerMoney)
+            playerMoney = Math.max(0, playerMoney - 10);
+            console.log("playerMoney", playerMoney);
             break;
         }
     }
 
         //Subract enemyHealth from playerAttack
-        enemyHealth = enemyHealth-playerAttack;
+        var damage = randomNumber(playerAttack - 3, playerAttack);
+        enemyHealth = Math.max(0, enemyHealth - damage);
         //log message
         console.log(
             playerName + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth + " health remaining.");
@@ -54,7 +55,8 @@ while(playerHealth > 0 && enemyHealth > 0) {
     }
 
     //Subtract playerHealth from enemyAttack
-    playerHealth = playerHealth-enemyAttack;
+    var damage = randomNumber(enemyAttack - 3, enemyAttack);
+    playerHealth = Math.max(0, playerHealth - damage);
     //log message
     console.log(
         enemyName + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining.");
@@ -87,7 +89,7 @@ for (var i = 0; i < enemyNames.length; i++) {
       // pick new enemy to fight based on the index of the enemyNames array
       var pickedEnemyName = enemyNames[i];
       //reset health
-      enemyHealth = 50;
+      enemyHealth = randomNumber(40, 60);
         //debugger;
       // pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
       fight(pickedEnemyName);
@@ -106,8 +108,6 @@ for (var i = 0; i < enemyNames.length; i++) {
         break;
     }
     endGame();
-    //play again
-    startGame();
   }
 }
 
@@ -177,6 +177,12 @@ var shop = function() {
             shop();
             break;
     }
+}
+
+//function to generate a random muneric value
+var randomNumber = function(min, max) {
+    var value = Math.floor(Math.random()*(max-min+1)) + min;
+    return value;
 }
 //start game
 startGame();
