@@ -4,24 +4,41 @@ var randomNumber = function(min, max) {
     return value;
 }
 
+var fightOrSkip = function() {
+    //ask player if they like to skip or fight 
+    var promptFight = window.prompt('Would you like to Fight or Skip this battle? Enter "FIGHT" or "SKIP" to choose.');
+
+    //enter conditional recursive funtion call here
+    if (promptFight === "" || promptFight === null) {
+        window.alert("You need to provide a valid answer! Please try again.");
+        return fightOrSkip();
+    }
+
+    promptFight = promptFight.toLowerCase();
+    // if player picks skip
+    if (promptFight === "skip") {
+        var confirmSkip = window.confirm("Are you sure you want to quit?");
+
+        //if yes
+        if (confirmSkip) {
+            window.alert(playerInfo.name + " has decided to skip this fight.");
+            //subtract mone
+            playerInfo.money = Math.max(0, playerInfo.money - 10);
+
+            return true;
+        }
+    }  
+        return false;
+}
+
 var fight = function (enemy) {
  //repeat and execute as long as the enemy robot is alive
-while(playerInfo.health > 0 && enemy.health > 0) {          
-    var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
-
-        //If player skipped
-     if (promptFight === "skip" || promptFight === "SKIP") {
-        //confirm skip
-        var confirmSkip = window.confirm("Are you sure you want to quit?");
-        //if yes
-        if(confirmSkip) {
-            window.alert(playerInfo.name + " has chosen to skip the fight!");
-            //subrtact money
-            playerInfo.money = Math.max(0, playerInfo.money - 10);
-            console.log("playerMoney", playerInfo.money);
-            break;
-        }
+    while (playerInfo.health > 0 && enemy.health > 0) {
+    if (fightOrSkip()) {
+        //if true leave fight by break
+        break;
     }
+        var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
 
         //Subract enemy.health from playerAttack
         var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
@@ -78,7 +95,7 @@ for (var i = 0; i < enemyInfo.length; i++) {
       // pick new enemy to fight based on the index of the enemy.names array
       var pickedEnemyObj = enemyInfo[i];
       //reset health
-      pickedEnemyObj = randomNumber(40, 60);
+      pickedEnemyObj.health = randomNumber(40, 60);
         //debugger;
       // pass the pickedenemy.name variable's value into the fight function, where it will assume the value of the enemy.name parameter
       fight(pickedEnemyObj);
