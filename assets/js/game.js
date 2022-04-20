@@ -143,7 +143,7 @@ var endGame = function() {
         alert(playerInfo.name + " now has the highscore of " + playerInfo.money + "!");
     } else {
         alert(playerInfo.name + " did not beat the highscore of " +highScore + ". Maybe next time!");
-    }
+    }s
     //ask if want to play again
     var playAgainConfirm = window.confirm("Would you like to play again?");
     if(playAgainConfirm) {
