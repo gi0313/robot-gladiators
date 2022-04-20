@@ -2,7 +2,7 @@
 var randomNumber = function(min, max) {
     var value = Math.floor(Math.random()*(max-min+1)) + min;
     return value;
-}
+};
 
 var fightOrSkip = function() {
     //ask player if they like to skip or fight 
@@ -29,7 +29,7 @@ var fightOrSkip = function() {
         }
     }  
         return false;
-}
+};
 
 var fight = function (enemy) {
  //repeat and execute as long as the enemy robot is alive
@@ -78,7 +78,7 @@ var fight = function (enemy) {
         window.alert(playerInfo.name+ " still has "+ playerInfo.health + " health left.");
     }
   }
-}
+};
 
 //function to start a new game
 var startGame = function() {
@@ -90,7 +90,6 @@ for (var i = 0; i < enemyInfo.length; i++) {
     if (playerInfo.health > 0) {
       // let player know what round they are in, remember that arrays start at 0 so it needs to have 1 added to it
       window.alert('Welcome to Robot Gladiators! Round ' + (i + 1));
-      debugger;
   
       // pick new enemy to fight based on the index of the enemy.names array
       var pickedEnemyObj = enemyInfo[i];
@@ -115,7 +114,7 @@ for (var i = 0; i < enemyInfo.length; i++) {
     }
   }
   endGame();
-}
+};
 
 //endgame function
 var endGame = function() {
@@ -136,25 +135,23 @@ var endGame = function() {
     else {
         window.alert("Thank you for playing Robot Gladiators! Come back again soon!");
     }
-}
+};
 
 var shop = function() {
     //ask what to do
-    var shopOptionPrompt = window.prompt("Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice.");
+    var shopOptionPrompt = window.prompt("Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 1 for REFILL, 2 for UPGRADE, or 3 to LEAVE.");
     //use switch
+    shopOptionPrompt = parseInt(shopOptionPrompt);
     switch (shopOptionPrompt) {
-        case "REFILL":
-        case "refill":
+        case 1:
             playerInfo.refillHealth();
             break;
 
-        case "UPGRADE":
-        case "upgrade":
+        case 2:
             playerInfo.upgradeAttack();
             break;
 
-        case "LEAVE":
-        case "leave":
+        case 3:
             window.alert("Leaving the store.");
             //do nothing
             break;
@@ -165,14 +162,16 @@ var shop = function() {
             shop();
             break;
     }
-}
+};
 
 var getPlayerName = function() {
     var name = "";
     while(name === "" || name === null) {
-        name = prompt("What is your robot's name?")
+        name = prompt("What is your robot's name?");
     }
-}
+    console.log("Your robot's name is " + name);
+    return name;
+};
 
 var playerInfo = {
     name: getPlayerName(),
@@ -189,7 +188,7 @@ var playerInfo = {
         this.attack += 6;
         this.money -= 7;
         } else {
-            window.alert("You don't have enough monmey!");
+            window.alert("You don't have enough money!");
         }
     },
     upgradeAttack: function() {
@@ -197,7 +196,7 @@ var playerInfo = {
         this.attack += 6;
         this.money -= 7;
         } else {
-            window.alert("You don't have enough monmey!");
+            window.alert("You don't have enough money!");
         }
     }
 }
